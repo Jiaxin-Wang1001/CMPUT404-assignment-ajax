@@ -30,7 +30,7 @@ var host = window.location.host;
 var context = canvas.getContext("2d");
 var W = canvas.width  = window.innerWidth-6;
 var H = canvas.height = window.innerHeight-50;
-
+var id = 'listener1';
 
 function sendJSONXMLHTTPRequest(url, objects, callback) {
     var xhr = new XMLHttpRequest();
@@ -42,10 +42,13 @@ function sendJSONXMLHTTPRequest(url, objects, callback) {
                     //XXX: Pass the data to the callback!
                     let data = xhr.response;
                     let jsonObj = JSON.parse(data);
-                    if(!objects){
+                    if (objects=='world'){
                         world = jsonObj;
                     }
-                    callback();
+                    else if(!objects){
+                        callback(jsonObj);
+                    }
+                    renderFrame();
                 }
             } 
             catch(e) {
@@ -75,6 +78,18 @@ var img = document.createElement('img');
 img.src = "hat.png";
 var backGround = document.createElement('img');
 backGround.src = "https://cdn.pixabay.com/photo/2014/05/26/10/43/cow-354428_960_720.jpg";
+
+function updateWorld(objects){
+    for (var key in objects) {
+        myWorld[key] = objects[key];
+    }
+}
+
+function register(id){
+    let url = "/listeners/" + id
+    sendJSONXMLHTTPRequest(url, 1, renderFrame);
+}
+register(id);
 
 //XXX: TODO Make this prettier!
 function drawCircle(context,entity) {
@@ -288,11 +303,13 @@ mouse.mousedraggers.push(function(x,y,clicked,e) {
 
 function update() {
     //XXX: TODO Get the world from the webservice using a XMLHTTPRequest
-    url = "/world";
-    sendJSONXMLHTTPRequest(url, null, renderFrame);
+    url = '/world'
+    sendJSONXMLHTTPRequest(url, 'world', renderFrame);
     //drawFrame();
 }
 
+
+update();
 // 30 frames per second
 setInterval( update, 1000/30.0);
 
