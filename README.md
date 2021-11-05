@@ -18,7 +18,7 @@ Consultation
 Senyu Li
 Jiayuan Sun
 
-Part of the code in server.py talen from 
+Part of the code in server.py taken from 
 ========================
 Copyright 2013 Abram Hindle
 Copyright 2019 Hazel Victoria Campbell
