@@ -69,6 +69,10 @@ function sendJSONXMLHTTPRequest(url, objects, callback) {
 
 
 world = {};
+var img = document.createElement('img');
+img.src = "hat.png";
+var backGround = document.createElement('img');
+backGround.src = "https://cdn.pixabay.com/photo/2014/05/26/10/43/cow-354428_960_720.jpg";
 
 //XXX: TODO Make this prettier!
 function drawCircle(context,entity) {
@@ -80,7 +84,8 @@ function drawCircle(context,entity) {
         //moveTo(x,y);
         fillStyle = entity["colour"];
         strokeStyle = fillStyle;
-        arc(x, y, (entity["radius"])?entity["radius"]:50, 0, 2.0 * Math.PI, false);  
+        drawImage(img, x-entity["width"]/2, y-entity["height"]/2, entity["width"], entity["height"]);
+        //arc(x, y, (entity["radius"])?entity["radius"]:50, 0, 2.0 * Math.PI, false);  
         stroke();                                
     }
 }
@@ -89,8 +94,11 @@ function prepEntity(entity) {
     if (!entity["colour"]) {
         entity["colour"] = "#FF0000";
     }
-    if (!entity["radius"]) {
-        entity["radius"] = 50;
+    if (!entity["width"]) {
+        entity["width"] = 80;
+    }
+    if (!entity["height"]) {
+        entity["height"] = 80;
     }
     return entity;
 }
@@ -98,8 +106,9 @@ function prepEntity(entity) {
 function clearFrame() {
     with(context) {
 	moveTo(0,0);
-	fillStyle = "#000";
-	fillRect(0,0,W,H);
+    drawImage(backGround, 0, 0, W, H);
+	// fillStyle = '#00FFFF';
+	// fillRect(0,0,W,H);
     }
 
 }
@@ -271,7 +280,7 @@ mouse.mouseuppers.push(function(x,y,clicked,e) {
 
 mouse.mousedraggers.push(function(x,y,clicked,e) {
     addEntityWithoutName({'x':x,'y':y,'colour':'green',
-                          'radius':10});
+                          'width':50, 'height':50});
 });
 
 
