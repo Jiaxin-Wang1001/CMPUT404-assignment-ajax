@@ -83,7 +83,8 @@ def update(entity):
     '''update the entities via this interface'''
     data = flask_post_json()
     myWorld.set(entity, data)
-    return ('', 204)
+    data = jsonify(myWorld.get(entity))
+    return (data, 200)
 
 @app.route("/world", methods=['POST','GET'])    
 def world():
@@ -99,7 +100,8 @@ def get_entity(entity):
 def clear():
     '''Clear the world out!'''
     myWorld.clear()
-    return ('', 204)
+    data = jsonify(myWorld.world())
+    return (data, 200)
 
 if __name__ == "__main__":
     app.run()

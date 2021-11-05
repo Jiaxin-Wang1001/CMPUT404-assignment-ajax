@@ -42,7 +42,9 @@ function sendJSONXMLHTTPRequest(url, objects, callback) {
                     //XXX: Pass the data to the callback!
                     let data = xhr.response;
                     let jsonObj = JSON.parse(data);
-                    world = jsonObj;
+                    if(!objects){
+                        world = jsonObj;
+                    }
                     callback();
                 }
             } 
