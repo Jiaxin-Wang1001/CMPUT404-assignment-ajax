@@ -21,7 +21,9 @@ Jiayuan Sun
 Part of the code in server.py taken from 
 ========================
 Copyright 2013 Abram Hindle
+
 Copyright 2019 Hazel Victoria Campbell
+
 https://github.com/uofa-cmput404/cmput404-slides/blob/master/examples/ObserverExampleAJAX/server.py
 
 
